@@ -81,5 +81,23 @@ contract Campaign{
         payable(request.recipient).transfer(request.value);
         request.complete=true;
     }
+
+       // Getter function to access a specific request's details
+    // function getRequestDetails(uint index) public view returns (
+    //     string memory description,
+    //     uint value,
+    //     address recipient,
+    //     bool complete,
+    //     uint approvalCount
+    // ) {
+    //     Request storage request = requests[index];
+    //     return (
+    //         request.description,
+    //         request.value,
+    //         request.recipient,
+    //         request.complete,
+    //         request.approvalCount
+    //     );
+    // }
    
 }
