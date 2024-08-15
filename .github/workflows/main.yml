@@ -55,11 +55,3 @@ jobs:
 
         deploy();
         "
-
-    - name: Verify contract on Etherscan (optional)
-      if: success() && secrets.ETHERSCAN_API_KEY
-      run: |
-        echo "Verifying contract on Etherscan..."
-        npx truffle run verify ContractName --network mainnet --license MIT
-      env:
-        ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
