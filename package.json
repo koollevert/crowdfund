@@ -1,23 +1,37 @@
 {
   "name": "crowdfund",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "test": "mocha"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
+    "next": "14.2.6",
+    "react": "^18",
+    "react-dom": "^18",
     "@truffle/hdwallet-provider": "^2.1.15",
+    "dotenv": "^16.4.5",
     "fs-extra": "^11.2.0",
     "ganache-cli": "^6.12.2",
     "hardhat": "^2.22.8",
-    "next": "^14.2.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "http-proxy-agent": "^7.0.2",
+    "https-proxy-agent": "^7.0.5",
     "solc": "^0.8.26",
     "truffle-hdwallet-provider": "^1.0.17",
     "web3": "^4.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.6",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
