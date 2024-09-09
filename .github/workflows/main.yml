@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16.x'  # Use a compatible Node.js version
+        node-version: '20.x'  # Use a compatible Node.js version
 
     - name: Install dependencies
       run: npm install
@@ -29,7 +29,7 @@ jobs:
         echo "Deploying contract..."
         node -e "
         const HDWalletProvider = require('@truffle/hdwallet-provider');
-        const Web3 = require('web3');
+        const {Web3} = require('web3');
         const compiledFactory = require('./ethereum/build/CampaignFactory.json');
 
         const provider = new HDWalletProvider(process.env.MNEMONIC, process.env.INFURA_PROJECT_URL);
