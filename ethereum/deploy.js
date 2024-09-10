@@ -31,7 +31,7 @@ const deploy = async () => {
   }
 };
 
-// Execute the deploy function and handle errors properly
+// Execute the deploy function and handle errors properlly
 deploy().catch((err) => {
   console.error("Unhandled promise rejection:", err);
   process.exit(1);
