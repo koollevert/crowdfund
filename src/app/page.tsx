@@ -1,21 +1,16 @@
-'use client'
-import Image from "next/image";
+'use client';
+
+import React, { Component } from 'react';
 import factory from "../../ethereum/factory"; 
-import { Component} from "react";
 
-// export default function Home() {
-//   return(
-//     <div>home page</div>
-//   ); 
-// }
-
-export default class CampaignIndex extends Component{
-  async componentDidCatch(){
-    const campaigns=await factory.methods.getDeployedCampigns().call();
+export default class CampaignIndex extends Component {
+  // Use componentDidMount to fetch data, not componentDidCatch
+  async componentDidMount() {
+    const campaigns = await factory.methods.getDeployedCampaigns().call();
     console.log(campaigns);
   }
-  render(){
-    return <div>Campaigns Index</div>
-  }
 
+  render() {
+    return <div>Campaigns Index</div>;
+  }
 }
