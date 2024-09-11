@@ -2,7 +2,6 @@
 
 import factory from "../ethereum/factory";
 
-// app/fetchCampaigns.ts (or in the same file if preferred)
 export async function fetchCampaigns() {
     try {
       const campaigns = await factory.methods.getDeployedCampaigns().call();
