@@ -1,10 +1,17 @@
 import { Button } from '@nextui-org/react';
-import { fetchCampaigns } from '../../actions';
 import CardComponent from '../../components/campaignCard';
+import factory from '../../ethereum/factory'; // Assuming you're interacting with a contract
 
-
+// Async Server Component in Next.js 13 using the app/ directory
 export default async function CampaignIndex() {
-  const campaigns = await fetchCampaigns(); // Call the server-side function
+  let campaigns: string[] = [];
+
+  try {
+    // Fetch the deployed campaigns from the Ethereum contract
+    campaigns = await factory.methods.getDeployedCampaigns().call();
+  } catch (err) {
+    console.error('Error fetching campaigns:', err);
+  }
 
   const renderCampaigns = () => {
     if (campaigns.length === 0) {
@@ -13,7 +20,7 @@ export default async function CampaignIndex() {
 
     return (
       <div className="flex flex-col gap-4">
-        {campaigns.map((address: string) => (
+        {campaigns.map((address) => (
           <CardComponent
             key={address}
             title={address}
@@ -27,9 +34,7 @@ export default async function CampaignIndex() {
   return (
     <div className="flex items-center min-h-screen">
       <h3>Open Projects</h3>
-      <div>
-        {renderCampaigns()}
-      </div>
+      <div>{renderCampaigns()}</div>
       <div>
         <Button color="primary">
           Add Campaign
@@ -38,3 +43,6 @@ export default async function CampaignIndex() {
     </div>
   );
 }
+
+// In the app/ directory, revalidate the page (ISR) after 10 seconds
+export const revalidate = 10;
