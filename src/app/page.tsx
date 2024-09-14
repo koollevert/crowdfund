@@ -32,14 +32,20 @@ export default async function CampaignIndex() {
   };
 
   return (
-    <div className="flex items-center min-h-screen">
-      <h3>Open Projects</h3>
-      <div>{renderCampaigns()}</div>
-      <div>
-        <Button color="primary">
-          Add Campaign
-        </Button>
+    <div>
+      <div className='m-4'>
+        <h3>Open Projects</h3>
       </div>
+
+      <div className='flex'>
+        <div className="flex-1 min-h-screen">{renderCampaigns()}</div>
+        <div className="flex-none ml-auto mb-4">
+          <Button color="primary">
+               Add Campaign
+          </Button>
+        </div>
+      </div>
+    
     </div>
   );
 }

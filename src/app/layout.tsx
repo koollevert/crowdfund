@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="container mx-auto px-4 max-w-6xl">
           <Providers>
-            <Header/>
+            <div className="mt-4 mb-4"><Header/></div>
             {children}
           </Providers>
         </div>
