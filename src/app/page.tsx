@@ -1,6 +1,7 @@
 import { Button } from '@nextui-org/react';
 import CardComponent from '../../components/campaignCard';
 import factory from '../../ethereum/factory'; // Assuming you're interacting with a contract
+import Link from 'next/link';
 
 // Async Server Component in Next.js 13 using the app/ directory
 export default async function CampaignIndex() {
@@ -40,9 +41,11 @@ export default async function CampaignIndex() {
       <div className='flex'>
         <div className="flex-1 min-h-screen">{renderCampaigns()}</div>
         <div className="flex-none ml-auto mb-4">
-          <Button color="primary">
-               Add Campaign
-          </Button>
+          <Link href={'/campaigns/new'}>
+            <Button color="primary">
+                 Add Campaign
+            </Button>
+          </Link>
         </div>
       </div>
     
