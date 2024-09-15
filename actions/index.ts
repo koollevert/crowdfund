@@ -3,6 +3,7 @@ import factory from "../ethereum/factory";
 import web3 from "../ethereum/web3";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { error } from "console";
 
 interface CampaignCreateFormStatus {
   errors: {
@@ -29,8 +30,24 @@ export async function fetchCampaigns() {
     }
 }
 
-export async function createCampaign(formData: FormData) {
+export type FormState={
+  minContribution: string,
+    errors: {
+      minContribution: string | undefined,
+    }
+}; 
+
+export async function createCampaign(previousState: FormState, formData: FormData) {
   const minContribution = formData.get('minContribution') as string;
+  if (!minContribution || isNaN(Number(minContribution))) {
+    return {
+      ...previousState,  // Preserve the rest of the state
+      minContribution,   // Keep the current input
+      errors: {
+        minContribution: "Contribution must be a valid number"
+      }
+    };
+  }
   try {
     const accounts = await web3.eth.getAccounts();
     await factory.methods.createCampaign(parseInt(minContribution)).send({
@@ -40,6 +57,13 @@ export async function createCampaign(formData: FormData) {
     console.error('Error creating campaign:', err);
   }
   
-  revalidatePath('/')
   redirect('/')
+  
+  return {
+    minContribution: "",
+    errors: {
+      minContribution: undefined,
+    }
+  }
+  
 }
