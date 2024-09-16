@@ -3,12 +3,10 @@ import CardComponent from '../../components/campaignCard';
 import factory from '../../ethereum/factory'; // Assuming you're interacting with a contract
 import Link from 'next/link';
 
-// Async Server Component in Next.js 13 using the app/ directory
 export default async function CampaignIndex() {
   let campaigns: string[] = [];
 
   try {
-    // Fetch the deployed campaigns from the Ethereum contract
     campaigns = await factory.methods.getDeployedCampaigns().call();
   } catch (err) {
     console.error('Error fetching campaigns:', err);
