@@ -15,15 +15,15 @@ export default function Header() {
           CrowdFund
         </Link>
       </NavbarBrand>
-      <NavbarContent justify="center">
+      <NavbarContent justify="end">
         <NavbarItem>
-          
+          <Link href={'/'}>Campaigns</Link>
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent justify="end">
         <NavbarItem>
-          
+          +
         </NavbarItem>
       </NavbarContent>
     </Navbar>

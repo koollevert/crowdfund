@@ -25,7 +25,8 @@ export default async function CampaignIndex() {
           <CardComponent
             key={address}
             title={address}
-            bodyText="Detailed description of the campaign goes here."
+            bodyText="view Campaign."
+            linkHref={`/campaigns/${address}`}
           />
         ))}
       </div>

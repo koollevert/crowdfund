@@ -1,11 +1,13 @@
 import { Card, CardHeader, CardBody, Divider, Image } from "@nextui-org/react";
+import Link from "next/link";
 
 interface CardComponentProps {
   title: string;
   bodyText: string;
+  linkHref: string;
 }
 
-const CardComponent: React.FC<CardComponentProps> = ({ title, bodyText }) => {
+const CardComponent: React.FC<CardComponentProps> = ({ title, bodyText, linkHref }) => {
   return (
     <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3">
@@ -15,7 +17,9 @@ const CardComponent: React.FC<CardComponentProps> = ({ title, bodyText }) => {
       </CardHeader>
       <Divider />
       <CardBody>
-        <p>{bodyText}</p>
+        <Link href= {linkHref}>
+          <p className="hover:underline">{bodyText}</p>
+        </Link>
       </CardBody>
     </Card>
   );
