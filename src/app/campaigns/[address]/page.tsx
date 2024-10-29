@@ -1,6 +1,6 @@
-import { Card, CardBody, CardHeader, Grid } from '@nextui-org/react';
+import { Card, CardBody, CardHeader} from '@nextui-org/react';
 import Campaign from '../../../../ethereum/campaign';
-import ContributeForm from '../../../../components/contributeForm';
+import ContributeForm from '../../../components/contributeForm';
 
 interface CampaignShowPageProps {
   params: {
@@ -17,6 +17,7 @@ export default async function CampaignShow({ params }: CampaignShowPageProps) {
 
     // Return fetched data
     return {
+      address: params.address,
       minimumContribution: summary[0].toString(),
       balance: summary[1].toString(),
       requestsCount: summary[2].toString(),
@@ -73,22 +74,17 @@ export default async function CampaignShow({ params }: CampaignShowPageProps) {
       );
   }
 
-  // Return the JSX for rendering the cards
+
   return (
-    <div>
-      <h1>Campaign Details</h1>
-      
-      <Grid>
-        <Grid.Column width={10}>
-          {renderCards()}
-        </Grid.Column>
-
-        <Grid.Column width={6}>
-          <ContributeForm/>
-
-        </Grid.Column>
-        
-      </Grid>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Campaign Details</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>{renderCards()}</div>
+        <div>
+          <ContributeForm address={params.address} />
+        </div>
+      </div>
     </div>
   );
+
 }

@@ -1,5 +1,5 @@
 import { Button } from '@nextui-org/react';
-import CardComponent from '../../components/campaignCard';
+import CardComponent from '../components/campaignCard';
 import factory from '../../ethereum/factory'; // Assuming you're interacting with a contract
 import Link from 'next/link';
 
