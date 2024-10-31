@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import campaign from '../../../../../ethereum/campaign';
 import web3 from '../../../../../ethereum/web3';
+import { Button } from '@/components/ui/button';
 
 interface Request {
     description: string;
@@ -25,6 +27,9 @@ export default async function RequestList({ params }: RequestListProps) {
 
     return (
         <div>
+            <Link href={`/campaigns/${params.address}/requests/new`}>
+                <Button>Add New Request +</Button>
+            </Link>
             <h1>Requests</h1>
             <ul>
                 {requests.map((request, index) => (
