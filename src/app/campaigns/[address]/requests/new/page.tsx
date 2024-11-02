@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import web3 from '../../../../../../ethereum/web3';
-import campaign from '../../../../../../ethereum/campaign';
+import { useFormState } from 'react-dom'; // Assuming you want to keep using this for form handling
 import { Input } from '@nextui-org/react';
-import { useForm } from 'react-hook-form';
+import * as actions from '@/actions/newRequest'; // Adjust the path as necessary
 import FormButton from '@/components/form-button';
 
 interface RequestProps {
@@ -12,70 +10,50 @@ interface RequestProps {
 }
 
 export default function NewRequest({ params }: RequestProps) {
-    const { register, handleSubmit, formState } = useForm();
-    const { errors } = formState;
-
-    const onSubmit = async ({data}: any) => {
-        const campaignInstance = campaign(params.address);
-
-        try {
-            const accounts = await web3.eth.getAccounts();
-            await campaignInstance.methods
-                .createRequest(
-                    data.description,
-                    web3.utils.toWei(data.value, 'ether'),
-                    data.recipient
-                )
-                .send({ from: accounts[0] });
-            // Handle success
-        } catch (err) {
-            console.error(err);
-            // Handle error
-        }
-    };
+    // Bind the action directly using the address as part of the arguments
+    const [formState, action] = useFormState(
+        actions.createNewRequest.bind(null, params.address),
+        { errors: {} }
+    );
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
+        <form action={action}>
+            <div className="flex flex-col gap-4 p-4 w-80">
+                <h3 className="text-lg">Create a Request</h3>
+
                 <Input
-                    {...register('description', { required: 'Description is required' })}
-                    isInvalid={!!errors.description}
-                    errorMessage={errors.description?.message as string || ''}
+                    isInvalid={!!formState.errors.description}
+                    errorMessage={formState.errors.description?.join(', ')}
+                    name="description"
                     label="Description"
                     labelPlacement="outside"
                     placeholder="Description"
                 />
-            </div>
-
-            <div>
                 <Input
-                    {...register('value', { required: 'Value in Ether is required' })}
-                    isInvalid={!!errors.value}
-                    errorMessage={errors.value?.message as string || ''}
+                    isInvalid={!!formState.errors.value}
+                    errorMessage={formState.errors.value?.join(', ')}
+                    name="value"
                     label="Value in Ether"
                     labelPlacement="outside"
                     placeholder="Value"
                 />
-            </div>
-
-            <div>
                 <Input
-                    {...register('recipient', { required: 'Recipient address is required' })}
-                    isInvalid={!!errors.recipient}
-                    errorMessage={errors.recipient?.message as string || ''}
+                    isInvalid={!!formState.errors.recipient}
+                    errorMessage={formState.errors.recipient?.join(', ')}
+                    name="recipient"
                     label="Recipient Address"
                     labelPlacement="outside"
                     placeholder="Recipient Address"
                 />
+
+                {formState.errors._form ? (
+                    <div className="rounded p-2 bg-red-200 border border-red-400">
+                        {formState.errors._form.join(', ')}
+                    </div>
+                ) : null}
+
+                <FormButton>Create Request</FormButton>
             </div>
-
-            {errors._form ? (
-                <div className="rounded p-2 bg-red-200 border border-red-400">
-                    {(errors._form.message as string) || ''}
-                </div>
-            ) : null}
-
-            <FormButton>Create Request</FormButton>
         </form>
     );
 }
