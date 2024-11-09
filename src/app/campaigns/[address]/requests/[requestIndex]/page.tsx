@@ -1,8 +1,8 @@
 // app/campaigns/[address]/requests/[requestIndex]/page.tsx
-
 import web3 from '../../../../../../ethereum/web3';
 import campaign from '../../../../../../ethereum/campaign';
 import { useState } from 'react';
+import ApproveButton from '@/components/approvrButton';
 
 interface RequestProps {
   params: {
@@ -16,7 +16,7 @@ export default async function RequestPage({ params }: RequestProps) {
 
   // Fetch request details from the smart contract
   const campaignInstance = campaign(address);
-  const requestData = await campaignInstance.methods.requests(requestIndex).call();
+  const requestData = await campaignInstance.methods.getRequestDetails(requestIndex).call();
   const approversCount = await campaignInstance.methods.approversCount().call();
 
   // Format the data
@@ -38,6 +38,7 @@ export default async function RequestPage({ params }: RequestProps) {
       <p><strong>Complete:</strong> {request.complete ? 'Yes' : 'No'}</p>
 
       {/* Add buttons for approval and finalization if needed */}
+      <ApproveButton address={address} requestIndex={Number(requestIndex)} />
       {/* These buttons should trigger client-side interactions */}
     </div>
   );
